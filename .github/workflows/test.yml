@@ -10,11 +10,19 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
-      - name: Start
+      - name: Check HBase available
         run: |
           mkdir toto
           touch toto/test.sh
-  build:
+      - name: Check Kafka available
+        run: |
+          mkdir tutu
+          touch tutu/test.sh
+      - name: Check Spark available
+        run: |
+          mkdir titi
+          touch titi/test.sh
+  test-suite:
     needs: setup
     runs-on: ubuntu-latest
     strategy:
@@ -31,8 +39,7 @@ jobs:
       run: |
         echo `python -V`
         echo ${{ matrix.spark-version }}
-        ls toto/
-  test:
+  clean:
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -40,4 +47,3 @@ jobs:
         run: |
           echo `python -V`
           echo ${{ matrix.spark-version }}
-          ls toto/
