@@ -7,14 +7,19 @@ on:
   pull_request:
 
 jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+        mkdir toto
+        touch toto/test.sh
   build:
-
+    needs: setup
     runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: [3.7]
         spark-version: [2.4.4, 2.4.7]
-
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
@@ -25,3 +30,12 @@ jobs:
       run: |
         echo `python -V`
         echo ${{ matrix.spark-version }}
+        ls toto/
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+        echo `python -V`
+        echo ${{ matrix.spark-version }}
+        ls toto/
