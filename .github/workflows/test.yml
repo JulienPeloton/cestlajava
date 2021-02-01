@@ -35,7 +35,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - run: |
+      run: |
         echo `python -V`
         echo ${{ matrix.spark-version }}
         ls toto/
