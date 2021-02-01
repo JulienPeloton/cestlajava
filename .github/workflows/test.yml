@@ -9,11 +9,11 @@ on:
 jobs:
   build:
 
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: [3.6, 3.7]
         spark-version: [2.4.4, 2.4.7]
-    runs-on: ${{ matrix.python-version }}
 
     steps:
     - uses: actions/checkout@v2
