@@ -12,20 +12,22 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.6, 3.7]
         spark-version: [2.4.4, 2.4.7]
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python ${{ matrix.python-version }}
+    - name: Set up Python 3.6
       uses: actions/setup-python@v2
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: 3.6
     - name: Set up Spark ${{ matrix.spark-version }}
       env:
         SPARK_VERSION:  ${{ matrix.spark-version }}
-        
+      run: |
+        echo `python -V`
+        echo $SPARK_VERSION
     - name: Check
       run: |
         echo `python -V`
         echo $SPARK_VERSION
+
