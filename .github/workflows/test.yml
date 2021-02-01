@@ -10,7 +10,7 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
-      -name: Start
+      - name: Start
         run: |
           mkdir toto
           touch toto/test.sh
