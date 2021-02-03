@@ -25,6 +25,8 @@ jobs:
   test-suite:
     needs: setup
     runs-on: ubuntu-latest
+    env:
+      FINK_HOME: $GITHUB_WORKSPACE
     strategy:
       matrix:
         python-version: [3.7]
@@ -36,12 +38,12 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
-      run: |
-        pip install s4cmb
     - name: Step1.1
       run: |
         echo `python -V`
         echo ${{ matrix.spark-version }}
+        echo $FINK_HOME
+        echo env.FINK_HOME
   clean:
     needs: test-suite
     runs-on: ubuntu-latest
