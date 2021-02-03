@@ -12,16 +12,7 @@ jobs:
     steps:
       - name: Check HBase available
         run: |
-          mkdir toto
-          touch toto/test.sh
-      - name: Check Kafka available
-        run: |
-          mkdir tutu
-          touch tutu/test.sh
-      - name: Check Spark available
-        run: |
-          mkdir titi
-          touch titi/test.sh
+          echo $JAVA_HOME
   test-suite:
     needs: setup
     runs-on: ubuntu-latest
