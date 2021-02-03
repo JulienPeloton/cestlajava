@@ -7,22 +7,39 @@ on:
   pull_request:
 
 jobs:
-  build:
-
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check HBase available
+        run: |
+          echo $JAVA_HOME
+  test-suite:
+    needs: setup
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.6, 3.7]
+        python-version: [3.7]
         spark-version: [2.4.4, 2.4.7]
-
     steps:
-    - uses: actions/checkout@v2
+    - name: Clone repo
+      uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Check
+    - name: set up env
+      run: |
+        echo "FINK_HOME=$GITHUB_WORKSPACE" >> $GITHUB_ENV
+    - name: Step1.1
       run: |
         echo `python -V`
         echo ${{ matrix.spark-version }}
-
+        echo $FINK_HOME
+  clean:
+    needs: test-suite
+    runs-on: ubuntu-latest
+    steps:
+      - name: final
+        run: |
+          echo `python -V`
+          echo ${{ matrix.spark-version }}
