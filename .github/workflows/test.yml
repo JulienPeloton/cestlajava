@@ -30,11 +30,14 @@ jobs:
         python-version: [3.7]
         spark-version: [2.4.4, 2.4.7]
     steps:
-    - uses: actions/checkout@v2
+    - name: Clone repo
+      uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
+      run: |
+        pip install s4cmb
     - name: Step1.1
       run: |
         echo `python -V`
